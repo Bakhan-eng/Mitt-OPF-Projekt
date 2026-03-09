@@ -1,0 +1,111 @@
+@page "/"
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Identity
+@using BlazorApp.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject NavigationManager NavigationManager
+
+<PageTitle>Welcome</PageTitle>
+
+<link href="css/home.css" rel="stylesheet" />
+
+<div class="home-container">
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <AuthorizeView>
+            <Authorized>
+                <h1 class="hero-title">Welcome, @context.User.Identity.Name, to Reddit 2!</h1>
+            </Authorized>
+            <NotAuthorized>
+                <h1 class="hero-title">Welcome to Reddit 2!</h1>
+            </NotAuthorized>
+        </AuthorizeView>
+        <p class="hero-subtitle">Your one-stop platform for engaging discussions and easy navigation.</p>
+        <AuthorizeView>
+            <Authorized>
+                <a href="/categories" class="btn btn-primary btn-lg">Get Started</a>
+            </Authorized>
+            <NotAuthorized>
+                <a href="/Account/Register" class="btn btn-primary btn-lg">Get Started</a>
+            </NotAuthorized>
+        </AuthorizeView>
+    </div>
+
+    <!-- How It Works Section -->
+    <section class="features-section">
+        <h2 class="section-title">How to Use This Site</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">👤</div>
+                <h3>1. Create an Account</h3>
+                <p>Register to access exclusive features like discussions and admin panels.</p>
+                <AuthorizeView>
+                    <Authorized>
+                        <LogoutButton ButtonClass="btn btn-outline-primary" />
+                    </Authorized>
+                    <NotAuthorized>
+                        <a href="/Account/Register" class="btn btn-outline-primary">Register Now</a>
+                    </NotAuthorized>
+                </AuthorizeView>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📑</div>
+                <h3>2. Browse Categories</h3>
+                <p>Navigate different categories to find discussions that interest you.</p>
+                <AuthorizeView>
+                    <NotAuthorized>
+                        <a href="/Account/Login" class="btn btn-outline-primary">Browse Categories</a>
+                    </NotAuthorized>
+                    <Authorized>
+                        <a href="/categories" class="btn btn-outline-primary">Browse Categories</a>
+                    </Authorized>
+                </AuthorizeView>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Links Section -->
+    <section class="quick-links-section">
+        <h2 class="section-title">Quick Access</h2>
+        <p class="section-subtitle">Navigate to key features instantly.</p>
+        <div class="quick-links-grid">
+            <AuthorizeView>
+                <NotAuthorized>
+                    <a href="/Account/Login" class="quick-link-card">
+                        <span class="quick-link-icon">🔑</span>
+                        <span>Login</span>
+                    </a>
+                    <a href="/Account/Login" class="quick-link-card">
+                        <span class="quick-link-icon">⚙️</span>
+                        <span>Manage Account</span>
+                    </a>
+                </NotAuthorized>
+                <Authorized>
+                    <a href="/categories" class="quick-link-card">
+                        <span class="quick-link-icon">📑</span>
+                        <span>Categories</span>
+                    </a>
+                    <a href="/Account/Manage" class="quick-link-card">
+                        <span class="quick-link-icon">⚙️</span>
+                        <span>Manage Account</span>
+                    </a>
+                </Authorized>
+            </AuthorizeView>
+            <a href="/log" class="quick-link-card">
+                <span class="quick-link-icon">📝</span>
+                <span>View Logs</span>
+            </a>
+        </div>
+    </section>
+</div>
+
+@code {
+    // This component serves as the home page of the application. 
+    // It provides a welcoming interface, introduces the platform's features, 
+    // and offers quick navigation options for both authorized and unauthorized users.
+    private async Task LogoutAsync()
+    {
+        await SignInManager.SignOutAsync();
+        NavigationManager.NavigateTo("/", true);
+    }
+}

@@ -1,0 +1,105 @@
+@page "/categories"
+@using BlazorApp.Data
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.EntityFrameworkCore
+@inject ApplicationDbContext dbContext
+
+<link href="css/category-list.css" rel="stylesheet" />
+
+
+<div class="categories-container">
+    
+    <div class="categories-header">
+        <h1>Forum Categories</h1>
+        <p class="subtitle">Browse and join discussions in your favorite topics</p>
+    </div>
+    
+    <div class="categories-grid">
+        @foreach (var category in categories)
+        {
+            
+// This component displays a list of forum categories. 
+// Users can browse categories, view statistics like thread and message counts, 
+// and navigate to discussions within each category.
+
+            <div class="category-card">
+                <div class="category-icon">
+                    @GetCategoryIcon(category)
+                </div>
+                <div class="category-content">
+                    <h2 class="category-title">@category</h2>
+                    <div class="category-stats">
+                        <span class="stat">
+                            <i class="bi bi-chat-square-text"></i>
+                            @GetThreadCount(category) threads
+                        </span>
+                        <span class="stat">
+                            <i class="bi bi-chat-dots"></i>
+                            @GetMessageCount(category) messages
+                        </span>
+                    </div>
+                    <a href="/category/@category" class="category-link">View Discussions</a>
+                </div>
+            </div>
+        }
+    </div>
+    
+    @if (!categories.Any())
+    {
+        <div class="empty-state">
+            <i class="bi bi-emoji-frown"></i>
+            <p>No categories found.</p>
+        </div>
+    }
+</div>
+
+@code {
+    private List<string> categories = new List<string>
+    {
+        "Film",
+        "Games",
+        "Series",
+    };
+    
+    private Dictionary<string, int> threadCounts = new();
+    private Dictionary<string, int> messageCounts = new();
+    
+    protected override async Task OnInitializedAsync()
+    {
+        var threads = await dbContext.Threads.ToListAsync();
+        foreach (var category in categories)
+        {
+            threadCounts[category] = threads.Count(t => t.Category == category);
+        }
+        
+        var messages = await dbContext.Messages
+            .Include(m => m.Thread)
+            .ToListAsync();
+            
+        foreach (var category in categories)
+        {
+            messageCounts[category] = messages.Count(m => m.Thread != null && m.Thread.Category == category);
+        }
+    }
+    
+    private int GetThreadCount(string category)
+    {
+        return threadCounts.TryGetValue(category, out var count) ? count : 0;
+    }
+    
+    private int GetMessageCount(string category)
+    {
+        return messageCounts.TryGetValue(category, out var count) ? count : 0;
+    }
+
+    private string GetCategoryIcon(string category)
+    {
+        return category switch
+        {
+            "Film" => "🎬",
+            "Games" => "🎮",
+            "Series" => "📺",
+            _ => "📑"
+        };
+    }
+}
