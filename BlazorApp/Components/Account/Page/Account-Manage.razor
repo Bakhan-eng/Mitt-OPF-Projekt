@@ -1,0 +1,249 @@
+@page "/Account/Manage"
+@layout AccountLayout
+@attribute [Microsoft.AspNetCore.Authorization.Authorize]
+
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Components.Authorization
+@using BlazorApp.Data
+@using System.Text
+@using System.Text.Encodings.Web
+@using Microsoft.AspNetCore.WebUtilities
+
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+@inject NavigationManager NavigationManager
+@inject Microsoft.AspNetCore.Identity.UI.Services.IEmailSender EmailSender
+@inject IdentityUserAccessor UserAccessor
+
+<link href="css/account-manage.css" rel="stylesheet" />
+
+<CascadingAuthenticationState>
+    <div class="account-container">
+        <div class="account-header">
+            <h1>Manage Your Profile</h1>
+        </div>
+
+        <!-- Change Email Section -->
+        <div class="account-card">
+            <h3>Change Email</h3>
+            <StatusMessage Message="@emailMessage" />
+            <div class="row">
+                <div class="col-md-6">
+                    <EditForm Model="EmailInput" FormName="change-email" OnValidSubmit="OnSubmitEmailAsync" method="post">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary class="validation-summary" role="alert" />
+                        @if (isEmailConfirmed)
+                        { 
+                            <div class="form-floating input-group">
+                                <input type="text" value="@email" class="form-control" placeholder="Please enter your email." disabled />
+                                <div class="input-group-append">
+                                    <span class="input-group-text">✓</span>
+                                </div>
+                                <label for="email" class="form-label">Email</label>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-floating">
+                                <input type="text" value="@email" class="form-control" placeholder="Please enter your email." disabled />
+                                <label for="email" class="form-label">Email</label>
+                            </div>
+                        }
+                        <div class="form-floating">
+                            <InputText @bind-Value="EmailInput.NewEmail" class="form-control" autocomplete="email" aria-required="true" placeholder="Please enter new email." />
+                            <label for="new-email" class="form-label">New email</label>
+                            <ValidationMessage For="() => EmailInput.NewEmail" class="validation-message" />
+                        </div>
+                        <button type="submit" class="submit-button">Change email</button>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+
+        <!-- Change Password Section -->
+        <div class="account-card">
+            <h3>Change Password</h3>
+            <StatusMessage Message="@passwordMessage" />
+            <div class="row">
+                <div class="col-md-6">
+                    <EditForm Model="PasswordInput" FormName="change-password" OnValidSubmit="OnSubmitPasswordAsync" method="post">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary class="validation-summary" role="alert" />
+                        <div class="form-floating">
+                            <InputText id="old-password" type="password" @bind-Value="PasswordInput.OldPassword" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Please enter your old password." />
+                            <label for="old-password" class="form-label">Old password</label>
+                            <ValidationMessage For="() => PasswordInput.OldPassword" class="validation-message" />
+                        </div>
+                        <div class="form-floating">
+                            <InputText id="new-password" type="password" @bind-Value="PasswordInput.NewPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Please enter your new password." />
+                            <label for="new-password" class="form-label">New password</label>
+                            <ValidationMessage For="() => PasswordInput.NewPassword" class="validation-message" />
+                        </div>
+                        <div class="form-floating">
+                            <InputText id="confirm-password" type="password" @bind-Value="PasswordInput.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Please confirm your new password." />
+                            <label for="confirm-password" class="form-label">Confirm password</label>
+                            <ValidationMessage For="() => PasswordInput.ConfirmPassword" class="validation-message" />
+                        </div>
+                        <button type="submit" class="submit-button">Update password</button>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete Account Section -->
+        <div class="account-card danger">
+            <h3>Delete Account</h3>
+            <p class="warning-text">
+                Warning: Deleting your account is permanent and cannot be undone.
+            </p>
+            <EditForm Model="DeleteInput" OnValidSubmit="OnSubmitDeleteAsync" FormName="deleteAccountForm">
+                <DataAnnotationsValidator />
+                <ValidationSummary class="validation-summary" />
+                <button type="submit" class="submit-button danger">Delete Account</button>
+            </EditForm>
+        </div>
+    </div>
+</CascadingAuthenticationState>
+
+@code {
+    // For email change
+    private string? emailMessage;
+    private ApplicationUser user = default!;
+    private string? email;
+    private bool isEmailConfirmed;
+    private bool hasPassword;
+    private EmailInputModel EmailInput { get; set; } = new();
+    
+    // For password change
+    private string? passwordMessage;
+    private PasswordInputModel PasswordInput { get; set; } = new();
+    
+    // For account deletion
+    private DeleteInputModel DeleteInput { get; set; } = new();
+
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthenticationStateTask { get; set; } = default!;
+
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await UserAccessor.GetRequiredUserAsync(HttpContext);
+        email = await UserManager.GetEmailAsync(user);
+        isEmailConfirmed = await UserManager.IsEmailConfirmedAsync(user);
+        hasPassword = await UserManager.HasPasswordAsync(user);
+
+        if (!hasPassword)
+        {
+            NavigationManager.NavigateTo("Account/Manage/SetPassword");
+        }
+
+        EmailInput.NewEmail ??= email;
+    }
+
+    private async Task OnSubmitEmailAsync()
+    {
+        if (EmailInput.NewEmail is null || EmailInput.NewEmail == email)
+        {
+            emailMessage = "Your email is unchanged.";
+            return;
+        }
+
+        // Update the email directly
+        var result = await UserManager.SetEmailAsync(user, EmailInput.NewEmail);
+        if (!result.Succeeded)
+        {
+            emailMessage = "Error: Unable to update email.";
+            return;
+        }
+
+        // Mark the email as confirmed
+        var token = await UserManager.GenerateEmailConfirmationTokenAsync(user);
+        var confirmResult = await UserManager.ConfirmEmailAsync(user, token);
+        if (!confirmResult.Succeeded)
+        {
+            emailMessage = "Error: Unable to confirm email.";
+            return;
+        }
+
+        email = EmailInput.NewEmail;
+        isEmailConfirmed = true;
+        emailMessage = "Your email has been updated and confirmed.";
+    }
+
+    private async Task OnSubmitPasswordAsync()
+    {
+        if (string.IsNullOrEmpty(PasswordInput.OldPassword) || string.IsNullOrEmpty(PasswordInput.NewPassword))
+        {
+            passwordMessage = "Error: Password fields cannot be empty.";
+            return;
+        }
+        
+        try
+        {
+            var changePasswordResult = await UserManager.ChangePasswordAsync(
+                user, 
+                PasswordInput.OldPassword, 
+                PasswordInput.NewPassword
+            );
+            
+            if (changePasswordResult.Succeeded)
+            {
+                await SignInManager.RefreshSignInAsync(user);
+                passwordMessage = "Your password has been changed successfully.";
+                
+                // Clear the form
+                PasswordInput = new PasswordInputModel();
+            }
+            else
+            {
+                passwordMessage = $"Error: {string.Join(", ", changePasswordResult.Errors.Select(error => error.Description))}";
+            }
+        }
+        catch (Exception ex)
+        {
+            passwordMessage = $"Error: {ex.Message}";
+        }
+    }
+
+    private async Task OnSubmitDeleteAsync()
+    {
+        await UserManager.DeleteAsync(user);
+        await SignInManager.SignOutAsync();
+        NavigationManager.NavigateTo("/");
+    }
+
+    private sealed class EmailInputModel
+    {
+        [Required]
+        [EmailAddress]
+        [Display(Name = "New email")]
+        public string? NewEmail { get; set; }
+    }
+
+    private sealed class PasswordInputModel
+    {
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Current password")]
+        public string OldPassword { get; set; } = "";
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "New password")]
+        public string NewPassword { get; set; } = "";
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm new password")]
+        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; } = "";
+    }
+
+    private class DeleteInputModel
+    {
+        // No additional properties needed
+    }
+}
