@@ -1,0 +1,33 @@
+
+@if (!string.IsNullOrEmpty(DisplayMessage))
+{
+    var statusMessageClass = DisplayMessage.StartsWith("Error") ? "danger" : "success";
+    <div class="alert alert-@statusMessageClass" role="alert">
+        @DisplayMessage
+    </div>
+}
+
+@code {
+    private string? messageFromCookie;
+
+    [Parameter]
+    public string? Message { get; set; }
+
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    private string? DisplayMessage => Message ?? messageFromCookie;
+
+    protected override void OnInitialized()
+    {
+        // This component displays status messages to the user, such as success or error notifications. 
+// It determines the message type based on its content and applies appropriate styling.
+
+        messageFromCookie = HttpContext.Request.Cookies[IdentityRedirectManager.StatusCookieName];
+
+        if (messageFromCookie is not null)
+        {
+            HttpContext.Response.Cookies.Delete(IdentityRedirectManager.StatusCookieName);
+        }
+    }
+}

@@ -1,0 +1,29 @@
+@inherits LayoutComponentBase
+@layout BlazorApp.Components.Layout.MainLayout
+@inject NavigationManager NavigationManager
+
+@if (HttpContext is null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    @Body
+}
+
+@code {
+    [CascadingParameter]
+    private HttpContext? HttpContext { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (HttpContext is null)
+        {
+// This component provides a layout for account-related pages. 
+// It ensures that the HttpContext is available for identity operations 
+// and transitions to server-rendered mode if necessary.
+
+            NavigationManager.Refresh(forceReload: true);
+        }
+    }
+}
