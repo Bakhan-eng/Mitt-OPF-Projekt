@@ -1,0 +1,140 @@
+@implements IDisposable
+
+@inject NavigationManager NavigationManager
+@using Microsoft.AspNetCore.Components.Authorization
+
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">Reddit 2</a>
+    </div>
+</div>
+
+<div class="nav-scrollable">
+    <div class="nav-section">
+        <div class="nav-section-title">Main</div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="bi bi-house-door-fill" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+
+        <AuthorizeView>
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="/categories">
+                        <span class="bi bi-layout-text-window" aria-hidden="true"></span> Categories
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="/log">
+                        <span class="bi bi-chat-square-text" aria-hidden="true"></span> Message Log
+                    </NavLink>
+                </div>
+            </Authorized>
+        </AuthorizeView>
+    </div>
+
+    <AuthorizeView>
+        <Authorized>
+            <div class="nav-section">
+                <div class="nav-section-title">Account</div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="Account/Manage">
+                        <span class="bi bi-person-fill" aria-hidden="true"></span> Manage Account
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <button @onclick="Logout" class="nav-link">
+                        <span class="bi bi-box-arrow-right" aria-hidden="true"></span> Logout
+                    </button>
+                </div>
+            </div>
+
+            @if (isAdmin || isMainAdmin)
+            {
+                <div class="nav-section">
+                    <div class="nav-section-title">Administration</div>
+                    @if (isMainAdmin)
+                    {
+                        <div class="nav-item px-3">
+                            <NavLink class="nav-link" href="/mainadmin">
+                                <span class="bi bi-shield-fill" aria-hidden="true"></span> Main Admin
+                            </NavLink>
+                        </div>
+                    }
+                    @if (isAdmin)
+                    {
+                        <div class="nav-item px-3">
+                            <NavLink class="nav-link" href="/admin">
+                                <span class="bi bi-gear-fill" aria-hidden="true"></span> Admin Panel
+                            </NavLink>
+                        </div>
+                    }
+                </div>
+            }
+        </Authorized>
+        <NotAuthorized>
+            <div class="nav-section">
+                <div class="nav-section-title">Account</div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="Account/Register">
+                        <span class="bi bi-person-plus" aria-hidden="true"></span> Register
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="Account/Login">
+                        <span class="bi bi-key" aria-hidden="true"></span> Login
+                    </NavLink>
+                </div>
+            </div>
+        </NotAuthorized>
+    </AuthorizeView>
+</div>
+
+@code {
+    private string? currentUrl;
+    private bool isAdmin;
+    private bool isMainAdmin;
+
+    [Inject]
+    private AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+// This component defines the navigation menu for the application. 
+// It provides links to various sections of the site, such as home, categories, and admin panels, 
+// with dynamic visibility based on the user's authentication and role (e.g., admin or main admin).
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        isAdmin = user.IsInRole("admin"); // Replace "Admin" with your admin role name
+        isMainAdmin = user.IsInRole("mainadmin"); // Replace "MainAdmin" with your main admin role name
+
+        currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+        NavigationManager.LocationChanged += OnLocationChanged;
+    }
+
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        try
+        {
+            currentUrl = NavigationManager.ToBaseRelativePath(e.Location);
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Navigation error: {ex}");
+        }
+    }
+
+    private void Logout()
+    {
+        NavigationManager.NavigateTo("Account/Logout", forceLoad: true);
+    }
+
+    public void Dispose()
+    {
+        NavigationManager.LocationChanged -= OnLocationChanged;
+    }
+}
+
