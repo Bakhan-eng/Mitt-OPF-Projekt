@@ -1,0 +1,30 @@
+@using Microsoft.AspNetCore.Identity
+@using BlazorApp.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject NavigationManager NavigationManager
+
+
+
+<button class="@ButtonClass" @onclick="LogoutAsync">
+    @ButtonText
+</button>
+
+@code {
+// This component renders a logout button. 
+// When clicked, it signs the user out and redirects them to a specified return URL, 
+// such as the login page.
+    [Parameter]
+    public string ButtonClass { get; set; } = "btn btn-primary";
+    
+    [Parameter]
+    public string ButtonText { get; set; } = "Logout";
+    
+    [Parameter]
+    public string ReturnUrl { get; set; } = "/Account/Login";
+    
+    private async Task LogoutAsync()
+    {
+        await SignInManager.SignOutAsync();
+        NavigationManager.NavigateTo(ReturnUrl);
+    }
+}
