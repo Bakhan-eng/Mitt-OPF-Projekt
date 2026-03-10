@@ -745,3 +745,13 @@ C:\Users\46706\Desktop\Development\Projekt\OOP Fortsättning\SlutProjekt-Complet
 C:\Users\46706\Desktop\Development\Projekt\OOP Fortsättning\SlutProjekt-Complete\OPF_uppgift\BlazorApp\obj\Debug\net8.0\BlazorApp.pdb
 C:\Users\46706\Desktop\Development\Projekt\OOP Fortsättning\SlutProjekt-Complete\OPF_uppgift\BlazorApp\obj\Debug\net8.0\BlazorApp.genruntimeconfig.cache
 C:\Users\46706\Desktop\Development\Projekt\OOP Fortsättning\SlutProjekt-Complete\OPF_uppgift\BlazorApp\obj\Debug\net8.0\ref\BlazorApp.dll
+C:\Users\46700\Desktop\Mitt OPF projekt\OPF_uppgift-main 1\OPF_uppgift-main\BlazorApp\obj\Debug\net8.0\BlazorApp.csproj.AssemblyReference.cache
+C:\Users\46700\Desktop\Mitt OPF projekt\OPF_uppgift-main 1\OPF_uppgift-main\BlazorApp\obj\Debug\net8.0\BlazorApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\46700\Desktop\Mitt OPF projekt\OPF_uppgift-main 1\OPF_uppgift-main\BlazorApp\obj\Debug\net8.0\BlazorApp.AssemblyInfoInputs.cache
+C:\Users\46700\Desktop\Mitt OPF projekt\OPF_uppgift-main 1\OPF_uppgift-main\BlazorApp\obj\Debug\net8.0\BlazorApp.AssemblyInfo.cs
+C:\Users\46700\Desktop\Mitt OPF projekt\OPF_uppgift-main 1\OPF_uppgift-main\BlazorApp\obj\Debug\net8.0\BlazorApp.csproj.CoreCompileInputs.cache
+C:\Users\46700\Desktop\Mitt OPF projekt\OPF_uppgift-main 1\OPF_uppgift-main\BlazorApp\obj\Debug\net8.0\BlazorApp.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\46700\Desktop\Mitt OPF projekt\OPF_uppgift-main 1\OPF_uppgift-main\BlazorApp\obj\Debug\net8.0\BlazorApp.sourcelink.json
+C:\Users\46700\Desktop\Mitt OPF projekt\OPF_uppgift-main 1\OPF_uppgift-main\BlazorApp\obj\Debug\net8.0\BlazorApp.dll
+C:\Users\46700\Desktop\Mitt OPF projekt\OPF_uppgift-main 1\OPF_uppgift-main\BlazorApp\obj\Debug\net8.0\refint\BlazorApp.dll
+C:\Users\46700\Desktop\Mitt OPF projekt\OPF_uppgift-main 1\OPF_uppgift-main\BlazorApp\obj\Debug\net8.0\BlazorApp.pdb
