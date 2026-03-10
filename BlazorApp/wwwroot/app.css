@@ -1,0 +1,67 @@
+/* Global Styles */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Update Primary Button */
+.btn-primary {
+    background-color: #FF4500;
+    border: none;
+    color: #ffffff;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-weight: bold;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn-primary:hover {
+    background-color: #e03d00;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Update Links */
+a, .btn-link {
+    color: #FF4500;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover, .btn-link:hover {
+    color: #cc3d00;
+}
+
+/* Container styles */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Card styles */
+.card {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+    padding: 1rem;
+}
+
+/* Form styles */
+.form-control {
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    padding: 0.75rem;
+    width: 100%;
+    transition: border-color 0.2s ease;
+}
+
+.form-control:focus {
+    border-color: #FF4500;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 69, 0, 0.1);
+}
