@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
-using BlazorApp.Components.Account.Pages;
 using BlazorApp.Data;
 
 namespace Microsoft.AspNetCore.Routing;
