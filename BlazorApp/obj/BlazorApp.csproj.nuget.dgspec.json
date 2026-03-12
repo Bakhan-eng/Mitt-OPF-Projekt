@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\46700\\Desktop\\ny mitt OPF\\Mitt-OPF-Projekt\\BlazorApp\\BlazorApp.csproj": {}
+    "C:\\Users\\46700\\Desktop\\testopf\\Mitt-OPF-Projekt\\BlazorApp\\BlazorApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\46700\\Desktop\\ny mitt OPF\\Mitt-OPF-Projekt\\BlazorApp\\BlazorApp.csproj": {
+    "C:\\Users\\46700\\Desktop\\testopf\\Mitt-OPF-Projekt\\BlazorApp\\BlazorApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\46700\\Desktop\\ny mitt OPF\\Mitt-OPF-Projekt\\BlazorApp\\BlazorApp.csproj",
+        "projectUniqueName": "C:\\Users\\46700\\Desktop\\testopf\\Mitt-OPF-Projekt\\BlazorApp\\BlazorApp.csproj",
         "projectName": "BlazorApp",
-        "projectPath": "C:\\Users\\46700\\Desktop\\ny mitt OPF\\Mitt-OPF-Projekt\\BlazorApp\\BlazorApp.csproj",
+        "projectPath": "C:\\Users\\46700\\Desktop\\testopf\\Mitt-OPF-Projekt\\BlazorApp\\BlazorApp.csproj",
         "packagesPath": "C:\\Users\\46700\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\46700\\Desktop\\ny mitt OPF\\Mitt-OPF-Projekt\\BlazorApp\\obj\\",
+        "outputPath": "C:\\Users\\46700\\Desktop\\testopf\\Mitt-OPF-Projekt\\BlazorApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\46700\\AppData\\Roaming\\NuGet\\NuGet.Config"

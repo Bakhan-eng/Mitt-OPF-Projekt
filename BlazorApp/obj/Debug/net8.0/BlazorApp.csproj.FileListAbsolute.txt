@@ -765,3 +765,13 @@ C:\Users\46700\Desktop\ny mitt OPF\Mitt-OPF-Projekt\BlazorApp\obj\Debug\net8.0\B
 C:\Users\46700\Desktop\ny mitt OPF\Mitt-OPF-Projekt\BlazorApp\obj\Debug\net8.0\BlazorApp.dll
 C:\Users\46700\Desktop\ny mitt OPF\Mitt-OPF-Projekt\BlazorApp\obj\Debug\net8.0\refint\BlazorApp.dll
 C:\Users\46700\Desktop\ny mitt OPF\Mitt-OPF-Projekt\BlazorApp\obj\Debug\net8.0\BlazorApp.pdb
+C:\Users\46700\Desktop\testopf\Mitt-OPF-Projekt\BlazorApp\obj\Debug\net8.0\BlazorApp.csproj.AssemblyReference.cache
+C:\Users\46700\Desktop\testopf\Mitt-OPF-Projekt\BlazorApp\obj\Debug\net8.0\BlazorApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\46700\Desktop\testopf\Mitt-OPF-Projekt\BlazorApp\obj\Debug\net8.0\BlazorApp.AssemblyInfoInputs.cache
+C:\Users\46700\Desktop\testopf\Mitt-OPF-Projekt\BlazorApp\obj\Debug\net8.0\BlazorApp.AssemblyInfo.cs
+C:\Users\46700\Desktop\testopf\Mitt-OPF-Projekt\BlazorApp\obj\Debug\net8.0\BlazorApp.csproj.CoreCompileInputs.cache
+C:\Users\46700\Desktop\testopf\Mitt-OPF-Projekt\BlazorApp\obj\Debug\net8.0\BlazorApp.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\46700\Desktop\testopf\Mitt-OPF-Projekt\BlazorApp\obj\Debug\net8.0\BlazorApp.sourcelink.json
+C:\Users\46700\Desktop\testopf\Mitt-OPF-Projekt\BlazorApp\obj\Debug\net8.0\BlazorApp.dll
+C:\Users\46700\Desktop\testopf\Mitt-OPF-Projekt\BlazorApp\obj\Debug\net8.0\refint\BlazorApp.dll
+C:\Users\46700\Desktop\testopf\Mitt-OPF-Projekt\BlazorApp\obj\Debug\net8.0\BlazorApp.pdb
