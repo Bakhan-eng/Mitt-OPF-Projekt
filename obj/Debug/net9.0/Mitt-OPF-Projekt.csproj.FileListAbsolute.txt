@@ -1,0 +1,5 @@
+C:\Users\46700\Desktop\Mitt OPF projekt\Mitt-OPF-Projekt\obj\Debug\net9.0\Mitt-OPF-Projekt.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\46700\Desktop\Mitt OPF projekt\Mitt-OPF-Projekt\obj\Debug\net9.0\Mitt-OPF-Projekt.AssemblyInfoInputs.cache
+C:\Users\46700\Desktop\Mitt OPF projekt\Mitt-OPF-Projekt\obj\Debug\net9.0\Mitt-OPF-Projekt.AssemblyInfo.cs
+C:\Users\46700\Desktop\Mitt OPF projekt\Mitt-OPF-Projekt\obj\Debug\net9.0\Mitt-OPF-Projekt.csproj.CoreCompileInputs.cache
+C:\Users\46700\Desktop\Mitt OPF projekt\Mitt-OPF-Projekt\obj\Debug\net9.0\Mitt-OPF-Projekt.sourcelink.json
