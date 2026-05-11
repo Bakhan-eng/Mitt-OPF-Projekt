@@ -1,154 +1,202 @@
-# Forumprojekt – Blazor Server
+
+# OPF_uppgift — Forumprojekt
+
+ 
 
 ## Projektbeskrivning
-Detta projekt är en webbapplikation som fungerar som ett forum där användare kan skapa trådar, skriva meddelanden och interagera med andra användare. Applikationen är utvecklad med **Blazor Server** och använder **ASP.NET Core Identity** för användarhantering samt **Entity Framework Core** för databasinteraktion.
 
-Syftet med projektet är att visa hur man kan bygga en modern webbapplikation med användarhantering, diskussionstrådar och databasintegration.
+ 
 
----
+Ett forumliknande system byggt med Blazor Server och ASP.NET Core 8. Användare kan registrera sig, logga in, skapa trådar i olika kategorier och skriva meddelanden. Systemet har tre rollnivåer: vanlig användare, admin och mainadmin.
 
-# Huvudfunktioner
+ 
 
-## Trådhantering
-Forumet är uppbyggt kring trådar där användare kan diskutera olika ämnen.
+## Teknisk plattform
 
-Funktioner:
-- Visa alla trådar i systemet
-- Öppna en specifik tråd
-- Skapa nya trådar
-- Radera trådar (trådägare och administratörer)
+ 
 
----
-
-## Meddelandehantering
-Användare kan skriva och hantera meddelanden i trådar.
-
-Funktioner:
-- Skicka meddelanden i en tråd
-- Svara på andra meddelanden
-- Visuell indentering för svar (för att visa konversationsträd)
-- Redigera egna meddelanden
-- Radera egna meddelanden
-
-Administratörer kan:
-- Redigera alla meddelanden
-- Radera alla meddelanden
-- Se alla meddelanden i systemet
-
----
-
-# Kontohantering
-Projektet använder **ASP.NET Core Identity** för att hantera användare.
-
-Funktioner:
-- Registrera konto
-- Logga in och logga ut
-- Uppdatera profilinformation
-- Uppdatera e-postadress
-- Uppdatera telefonnummer
-- Ändra lösenord
-
----
-
-# Kontoradering
-Systemet erbjuder två metoder för att radera ett konto.
-
-## Snabbradering
-- Direkt radering från profilsidan
-- Bekräftelsedialog innan kontot tas bort
-
-## Avancerad radering
-- En separat sida med extra bekräftelsesteg
-- Databastranaktioner används för att säkerställa dataintegritet
-
-När ett konto raderas tas även relaterad data bort, till exempel:
-- användarens trådar
-- användarens meddelanden
-
----
-
-# Säkerhet
-Projektet innehåller flera säkerhetsfunktioner:
-- Rollbaserad åtkomst (Admin / User)
-- Bekräftelsedialoger för kritiska operationer
-- Lösenordsverifiering för känsliga ändringar
-- Databastranaktioner för att undvika inkonsekvent data
-
----
-
-# Adminkonto för testning
-För att testa alla funktioner finns ett administratörskonto.
-
-Informationen finns i:
-`Models/RoleInitializer.cs`
-
-Där finns användarnamn och lösenord för admin-kontot.
-
----
-
-# Användarscenarion
-
-## Inloggning
-**Scenario:**  
-En användare vill logga in för att använda forumets funktioner.
-
-**Steg:**
-1. Navigera till inloggningssidan  
-2. Ange e-postadress och lösenord  
-3. Klicka på **Logga in**
-
-**Förväntat resultat**
-- Användaren omdirigeras till startsidan  
-- Felmeddelande visas vid felaktiga uppgifter
-
----
-
-## Skriva kommentar
-**Scenario:**  
-En användare vill delta i en diskussion.
-
-**Steg**
-1. Logga in  
-2. Öppna en tråd  
-3. Skriv ett meddelande  
-4. Klicka på **Send**
-
-**Förväntat resultat**
-- Kommentaren visas direkt i tråden  
-- Användarnamn och datum visas tillsammans med kommentaren
-
----
-
-## Uppdatera profil
-**Scenario:**  
-En användare vill uppdatera sina uppgifter.
-
-**Steg**
-1. Logga in  
-2. Gå till **Manage Account**  
-3. Redigera profilinformation  
-4. Klicka på **Save**
-
-**Förväntat resultat**
-- Uppgifterna sparas  
-- Ett bekräftelsemeddelande visas
-
----
-
-# Teknisk plattform
-Projektet är byggt med följande teknologier:
 - ASP.NET Core 8
 - Blazor Server
-- Entity Framework Core
-- SQLite
-- ASP.NET Core Identity
+- Entity Framework Core med SQLite
+- ASP.NET Core Identity (autentisering och roller)
 - Bootstrap 5
+
+ 
+
+## Arkitektur
+
+ 
+
+Projektet följer Blazor Servers komponentmodell:
+
+ 
+
+- `Components/Pages/` — sidkomponenter (Home, CategoryList, Category, ThreadView, Log, Admin, Mainadmin)
+- `Components/Layout/` — NavMenu och MainLayout
+- `Components/Account/` — registrering, inloggning och kontoinställningar
+- `Data/ApplicationDbContext.cs` — databaskontext med Identity och forumtabeller
+- `Models/` — entiteter (Thread, Message) och RoleInitializer
+- `Migrations/` — Entity Framework-migrationer
+- `Services/LogService.cs` — service för meddelandelogg
+
+ 
+
+## Kom igång
+
+ 
+
+1. Klona repot
+2. Öppna `BlazorApp.sln` i Visual Studio
+3. Kör projektet — databasen skapas automatiskt och roller/mainadmin seedas vid uppstart
+
+ 
+
+## Roller och åtkomst
+
+ 
+
+Systemet har tre roller med olika behörigheter:
+
+ 
+
+| Roll | Åtkomst |
+|------|---------|
+| Användare | Skapa trådar, skriva och svara på meddelanden, redigera/radera egna meddelanden |
+| Admin | Allt ovan + redigera/radera alla meddelanders, se alla användares meddelanden i loggen |
+| Mainadmin | Allt ovan + hantera roller, promota/demota användare, radera användare |
+
+ 
+
+## Testa administratörsrollen
+
+ 
+
+Mainadmin-kontot skapas automatiskt vid uppstart via `RoleInitializer.cs`.
+
+ 
+
+**Inloggningsuppgifter:**
+- E-post: `mainadmin@example.com`
+- Lösenord: `YourSecurePassword123!`
+
+ 
+
+För att testa admin-rollen: logga in som mainadmin, navigera till `/mainadmin` och promota en annan användare till admin. Den användaren får då tillgång till `/admin`.
+
+ 
+
+## Användarscenarion
+
+ 
+
+### 1. Inloggning
+
+ 
+
+**Scenario:** En användare vill logga in för att delta i forumet.
+
+ 
+
+**Teststeg:**
+1. Navigera till `/Account/Login`
+2. Ange e-postadress och lösenord
+3. Klicka på "Log in"
+
+ 
+
+**Förväntat resultat:** Användaren omdirigeras till startsidan och hälsas med sitt användarnamn.
+
+ 
 
 ---
 
-# Starta projektet
-För att köra projektet lokalt:
+ 
 
-1. Navigera till projektmappen
-```powershell
-cd BlazorApp
+### 2. Skapa en tråd
+
+ 
+
+**Scenario:** En inloggad användare vill starta en diskussion i en kategori.
+
+ 
+
+**Teststeg:**
+1. Navigera till "Categories" i navmenyn
+2. Välj en kategori (t.ex. Games)
+3. Klicka på "Create New Thread"
+4. Fyll i titel och beskrivning, klicka på "Create"
+
+ 
+
+**Förväntat resultat:** Tråden visas i kategorilistan.
+
+ 
+
+---
+
+ 
+
+### 3. Svara på ett meddelande
+
+ 
+
+**Scenario:** En användare vill svara på ett befintligt meddelande i en tråd.
+
+ 
+
+**Teststeg:**
+1. Navigera till en tråd
+2. Klicka på "Reply" på ett meddelande
+3. Skriv ett svar och skicka
+
+ 
+
+**Förväntat resultat:** Svaret visas indraget under originalmeddelandet.
+
+ 
+
+---
+
+ 
+
+### 4. Adminmoderation
+
+ 
+
+**Scenario:** En admin vill radera ett olämpligt meddelande.
+
+ 
+
+**Teststeg:**
+1. Logga in som admin eller mainadmin
+2. Navigera till `/log`
+3. Hitta meddelandet och klicka på "Delete"
+
+ 
+
+**Förväntat resultat:** Meddelandet tas bort för alla användare.
+
+ 
+
+---
+
+ 
+
+### 5. Hantera användarroller (mainadmin)
+
+ 
+
+**Scenario:** Mainadmin vill ge en användare adminrättigheter.
+
+ 
+
+**Teststeg:**
+1. Logga in med mainadmin-kontot
+2. Navigera till `/mainadmin`
+3. Hitta användaren i listan och klicka på "Make Admin"
+
+ 
+
+**Förväntat resultat:** Användaren får admin-rollen och tillgång till `/admin`.
+
+
