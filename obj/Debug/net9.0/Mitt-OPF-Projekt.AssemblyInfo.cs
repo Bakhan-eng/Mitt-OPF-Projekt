@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Mitt-OPF-Projekt")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7f6b82a11ac820744ad9b7dcbf97ce8be460f7a6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1e401f79b1099535e31a55711bc0b7ca25471267")]
 [assembly: System.Reflection.AssemblyProductAttribute("Mitt-OPF-Projekt")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Mitt-OPF-Projekt")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

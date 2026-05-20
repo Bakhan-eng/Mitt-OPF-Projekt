@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "oqYMc5hwH5uy6a5FqpBpqm2hwRO16XWss6eLNW3WH+Y=",
+  "Hash": "2TSyyAmavHTE7uMUUCqIZ8JZAfD/ccACaxperXFICOQ=",
   "Source": "BlazorApp",
   "BasePath": "_content/BlazorApp",
   "Mode": "Default",
@@ -241,8 +241,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "8nnqv8inko",
-      "Integrity": "zIbC5JLTk8TABo/JNaq0q26YXyX7Z3+/edimgQBEwZA=",
+      "Fingerprint": "om3u9br1gq",
+      "Integrity": "IO3B0FH8yxHOnDpcOKAWJwnTMjoRCfdZnfklQK5xSZs=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\log.css"
@@ -1154,51 +1154,6 @@
       ]
     },
     {
-      "Route": "css/log.8nnqv8inko.css",
-      "AssetFile": "C:\\Users\\46700\\Desktop\\Mitt OPF projekt\\Mitt-OPF-Projekt\\BlazorApp\\wwwroot\\css\\log.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "6101"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"zIbC5JLTk8TABo/JNaq0q26YXyX7Z3+/edimgQBEwZA=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 12 Mar 2026 12:28:37 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "8nnqv8inko"
-        },
-        {
-          "Name": "label",
-          "Value": "css/log.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-zIbC5JLTk8TABo/JNaq0q26YXyX7Z3+/edimgQBEwZA="
-        }
-      ]
-    },
-    {
       "Route": "css/log.css",
       "AssetFile": "C:\\Users\\46700\\Desktop\\Mitt OPF projekt\\Mitt-OPF-Projekt\\BlazorApp\\wwwroot\\css\\log.css",
       "Selectors": [],
@@ -1209,7 +1164,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "6101"
+          "Value": "6488"
         },
         {
           "Name": "Content-Type",
@@ -1217,11 +1172,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"zIbC5JLTk8TABo/JNaq0q26YXyX7Z3+/edimgQBEwZA=\""
+          "Value": "\"IO3B0FH8yxHOnDpcOKAWJwnTMjoRCfdZnfklQK5xSZs=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 12 Mar 2026 12:28:37 GMT"
+          "Value": "Wed, 20 May 2026 19:17:25 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1231,7 +1186,52 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-zIbC5JLTk8TABo/JNaq0q26YXyX7Z3+/edimgQBEwZA="
+          "Value": "sha256-IO3B0FH8yxHOnDpcOKAWJwnTMjoRCfdZnfklQK5xSZs="
+        }
+      ]
+    },
+    {
+      "Route": "css/log.om3u9br1gq.css",
+      "AssetFile": "C:\\Users\\46700\\Desktop\\Mitt OPF projekt\\Mitt-OPF-Projekt\\BlazorApp\\wwwroot\\css\\log.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6488"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"IO3B0FH8yxHOnDpcOKAWJwnTMjoRCfdZnfklQK5xSZs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 20 May 2026 19:17:25 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "om3u9br1gq"
+        },
+        {
+          "Name": "label",
+          "Value": "css/log.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-IO3B0FH8yxHOnDpcOKAWJwnTMjoRCfdZnfklQK5xSZs="
         }
       ]
     },
