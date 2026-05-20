@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
- 
-public class Category
-
+namespace BlazorApp.Models 
 {
+    public class Category
+    {
 
     public int Id { get; set; }
  
@@ -17,4 +17,4 @@ public class Category
     public ICollection<Thread> Threads { get; set; } = new List<Thread>();
 
 }
- 
+}
